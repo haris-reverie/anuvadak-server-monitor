@@ -1,6 +1,7 @@
 var express = require('express');
 const axios = require('axios');
 const fetch = require('node-fetch');
+const {exec} = require('child_process');
 var router = express.Router();
 
 /* GET home page. */
@@ -51,7 +52,30 @@ router.get('/health-check', async (req,res) => {
   }
 
   res.status(200).json(serverStatus);
-})
+});
+
+router.get('/cache-size-check', async (req,res) => {
+  try {
+    exec("cd && du -shm nginx-cache | awk '{print $1}'",(err,stdout,stderr)=>{
+      if (err) {
+        console.log("ERROR: " ,err);
+      }
+
+      if (stdout) {
+        console.log(`${stdout/500*100} % of cache-space used`);
+      }
+
+      if (stderr) {
+        console.log("STDERR", stderr);
+      }
+    });
+
+
+    res.json({status:true, message:"Request received"});
+  } catch (error) {
+    console.log(error);
+  }
+});
 
 module.exports = router;
 
