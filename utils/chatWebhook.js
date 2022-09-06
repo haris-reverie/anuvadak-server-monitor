@@ -109,7 +109,7 @@ const sendCacheUsageMessage = async (message)=>{
                 header: {
                   title: "ANV-3.0 Nginx Cache Alert",
                   imageUrl:
-                    "https://w7.pngwing.com/pngs/816/934/png-transparent-nginx-hd-logo-thumbnail.png",
+                    "https://avatars.githubusercontent.com/u/8629072?s=200&v=4",
                 },
                 sections: [
                   {
